@@ -1,0 +1,64 @@
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:2.2.3'
+    }
+}
+
+repositories {
+    mavenLocal()
+    mavenCentral()
+    maven {
+        url "https://maven.google.com"
+    }
+}
+
+apply plugin: 'com.android.application'
+
+repositories {
+    mavenLocal()
+    mavenCentral()
+}
+
+android {
+    compileSdkVersion 26
+    android.buildToolsVersion "26.0.2"
+    defaultConfig {
+        minSdkVersion 14
+        targetSdkVersion 16
+        applicationId 'com.github.pires.obd.reader'
+    }
+
+    lintOptions {
+        abortOnError false
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+    compile 'com.android.support:appcompat-v7:22.1.1'
+    compile 'com.github.pires:obd-java-api:1.0-RC14'
+    compile 'org.roboguice:roboguice:3.+'
+    provided 'org.roboguice:roboblender:3.+'
+    compile 'com.squareup.retrofit:retrofit:1.9.0'
+    compile 'com.amazonaws:aws-android-sdk-core:2.4.4'
+    compile 'com.amazonaws:aws-android-sdk-ddb:2.4.4'
+    compile 'com.amazonaws:aws-android-sdk-ddb-document:2.4.4'
+    compile 'com.amazonaws:aws-android-sdk-mobile-client:2.7.+'
+    compile 'com.amazonaws:aws-android-sdk-s3:2.7.+'
+    compile 'com.amazonaws:aws-android-sdk-cognito:2.7.+'
+    compile "com.opencsv:opencsv:4.0"
+}
+configurations.all {
+    resolutionStrategy {
+        force 'com.android.support:support-v4:27.1.0'
+    }
+}
